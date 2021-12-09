@@ -195,6 +195,12 @@ stdenv.mkDerivation (rec {
     # Renamed to match ghc8.8:
     # https://gitlab.haskell.org/ghc/ghc/-/commit/4b431f334018eaef2cf36de3316025c68c922915#20d64c0bdc272817149d1d5cf20a73a8b5fd637f
     ./rename-numa-api-call.patch
+  ] ++ lib.optionals stdenv.isDarwin [
+    # Reverts the linking behavior of GHC to not resolve `-libc++` to `c++`.
+    (fetchpatch {
+      url = "https://raw.githubusercontent.com/input-output-hk/haskell.nix/902d94ddd7d02472c8ee52877cf8538041f9071a/overlays/patches/ghc/ghc-macOS-loadArchive-fix.patch";
+      sha256 = "1adywy867cwbh288ghr2f7mg8xq0g0kif1d6vswd0zqxwrbg9dh5";
+    })
   ];
 
   postPatch = "patchShebangs .";

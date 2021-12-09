@@ -183,6 +183,13 @@ stdenv.mkDerivation (rec {
 
   outputs = [ "out" "doc" ];
 
+  patches = lib.optionals stdenv.isDarwin [
+    (fetchpatch {
+      url = "https://raw.githubusercontent.com/input-output-hk/haskell.nix/902d94ddd7d02472c8ee52877cf8538041f9071a/overlays/patches/ghc/ghc-9.2-macOS-loadArchive-fix.patch";
+      sha256 = "1wb8zf10w805ldcyjm7vcjpg9g71rvxdl30r0kcgk4pdcpz0hxi2";
+    })
+  ];
+
   postPatch = "patchShebangs .";
 
   # GHC needs the locale configured during the Haddock phase.

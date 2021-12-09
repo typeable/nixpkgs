@@ -176,7 +176,7 @@ stdenv.mkDerivation (rec {
 
   src = fetchurl {
     url = "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz";
-    sha256 = "140e42b96346322d1a39eb17602bcdc76e292028ad4a69286b230bab188a9197";
+    sha256 = "sha256-FA5CuWNGMi0aOesXYCvNx24pICitSmkoayMLqxiKkZc";
   };
 
   enableParallelBuilding = true;
@@ -191,6 +191,11 @@ stdenv.mkDerivation (rec {
       # Note that the test suite is not packaged.
       url = "https://gitlab.haskell.org/ghc/ghc/-/commit/c6132c782d974a7701e7f6447bdcd2bf6db4299a.patch?merge_request_iid=7423";
       sha256 = "sha256-b4feGZIaKDj/UKjWTNY6/jH4s2iate0wAgMxG3rAbZI=";
+    })
+  ] ++ lib.optionals stdenv.targetPlatform.isDarwin [
+    (fetchpatch {
+      url = "https://raw.githubusercontent.com/input-output-hk/haskell.nix/902d94ddd7d02472c8ee52877cf8538041f9071a/overlays/patches/ghc/ghc-9.0-macOS-loadArchive-fix.patch";
+      sha256 = "038bgkwrkqgpiy0riimbgs979wvzx3flll72m4zi22075dx0mnhm";
     })
   ] ++ lib.optionals (stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64) [
 

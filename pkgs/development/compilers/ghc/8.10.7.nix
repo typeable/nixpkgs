@@ -212,6 +212,10 @@ stdenv.mkDerivation (rec {
       url = "https://gitlab.haskell.org/ghc/ghc/-/commit/97d0b0a367e4c6a52a17c3299439ac7de129da24.patch";
       sha256 = "0r4zjj0bv1x1m2dgxp3adsf2xkr94fjnyj1igsivd9ilbs5ja0b5";
     })
+    (fetchpatch {
+      url = "https://raw.githubusercontent.com/input-output-hk/haskell.nix/613ec38dbd62ab7929178c9c7ffff71df9bb86be/overlays/patches/ghc/ghc-macOS-loadArchive-fix.patch";
+      sha256 = "1adywy867cwbh288ghr2f7mg8xq0g0kif1d6vswd0zqxwrbg9dh5";
+    })
   ] ++ lib.optionals (stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64) [
 
     # Prevent the paths module from emitting symbols that we don't use
